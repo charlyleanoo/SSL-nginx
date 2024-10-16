@@ -1,0 +1,31 @@
+server {
+        listen 80;
+        listen [::]:80;
+
+        root /var/www/tu_dominio/html;
+        index index.html index.htm index.nginx-debian.html;
+
+        server_name dominio.com www.dominio.com;
+
+        location / {
+                try_files $uri $uri/ =404;
+        }
+}
+server {
+    listen              443 ssl;
+    server_name         dominio.com www.dominio.com;
+    ssl_certificate     ruta/fullchain.pem;
+    ssl_certificate_key ruta/server.key;
+    ssl_protocols       TLSv1.2 TLSv1.3;
+    ssl_ciphers         HIGH:!aNULL:!MD5:!CBC:!RSA;
+    ssl_dhparam         ruta/dhparam.pem;
+
+      root /var/www/dominio.com/html;
+
+     index index.html index.htm index.nginx-debian.html;
+
+    location / {
+             try_files $uri $uri/ =404;
+    }
+}
+
